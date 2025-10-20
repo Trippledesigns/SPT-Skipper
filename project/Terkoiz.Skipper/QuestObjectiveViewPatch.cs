@@ -75,8 +75,8 @@ namespace Terkoiz.Skipper
                     quest.ProgressCheckers[condition].SetCurrentValueGetter(_ => condition.value);
 
                     // We call 'SetConditionCurrentValue' to trigger all the code needed to make the condition completion appear visually in-game
-                    var conditionController = AccessTools.Field(questController.GetType(), $"{UnderlyingQuestControllerClassName.ToLowerInvariant()}_0").GetValue(questController);
-                    AccessTools.DeclaredMethod(conditionController.GetType().BaseType, "SetConditionCurrentValue").Invoke(conditionController, new object[] { quest, EQuestStatus.AvailableForFinish, condition, condition.value, true });
+var fieldName = $"{UnderlyingQuestControllerClassName.Substring(0, 1).ToUpperInvariant()}{UnderlyingQuestControllerClassName.Substring(1).ToLowerInvariant()}_0"; // GClass3781 --> Gclass3781_0
+                    var conditionController = AccessTools.Field(questController.GetType(), fieldName).GetValue(questController);                    AccessTools.DeclaredMethod(conditionController.GetType().BaseType, "SetConditionCurrentValue").Invoke(conditionController, new object[] { quest, EQuestStatus.AvailableForFinish, condition, condition.value, true });
 
                     skipButton.gameObject.SetActive(false);
                 },
